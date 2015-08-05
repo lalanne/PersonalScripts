@@ -1,25 +1,35 @@
 #!/bin/sh
 
 echo ""
-echo "Tmux sessions in this machine: "
-echo ""
+echo "What do you want to do?: "
+echo "1) Create" 
+echo "2) Close"
+echo "3) Attach"
+echo "4) Switch"
 
-sessions=( $(tmux ls | awk '{print $1}' | tr -d : | column -c 40) )
+read -p "?:" option
+if [ "$option" == '4' ]; then
 
-sessionNumber=0
-for i in ${sessions[@]}
-do
-    echo "$sessionNumber) $i"
-    let sessionNumber=sessionNumber+1
-done 
+    echo ""
+    echo "Tmux sessions in this machine: "
+    echo ""
 
-echo ""
+    sessions=( $(tmux ls | awk '{print $1}' | tr -d : | column -c 40) )
 
-while true; do
-    read -p "Which session number would you like to switch(-1 to quit):" session
-    if [ "$session" == '-1' ]; then
-        exit 0
-    fi
-    tmux switch -t ${sessions[$session]}
-done
+    sessionNumber=0
+    for i in ${sessions[@]}
+    do
+        echo "$sessionNumber) $i"
+        let sessionNumber=sessionNumber+1
+    done 
 
+    echo ""
+
+    while true; do
+        read -p "Which session number would you like to switch(-1 to quit):" session
+        if [ "$session" == '-1' ]; then
+            exit 0
+        fi
+        tmux switch -t ${sessions[$session]}
+    done
+fi
