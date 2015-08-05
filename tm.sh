@@ -16,6 +16,10 @@ done
 echo ""
 
 while true; do
-    read -p "Which session would you like to switch:" session
+    read -p "Which session number would you like to switch(-1 to quit):" session
+    if [ "$session" == '-1' ]; then
+        exit 0
+    fi
     tmux switch -t ${sessions[$session]}
 done
+
