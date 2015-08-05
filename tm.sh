@@ -17,6 +17,5 @@ echo ""
 
 while true; do
     read -p "Which session would you like to switch:" session
-    echo "tmux switch -t ${sessions[$session]}"
     tmux switch -t ${sessions[$session]}
 done
