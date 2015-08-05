@@ -1,32 +1,22 @@
-#!/bin/bash
+#!/bin/sh
 
 echo ""
-echo "Sessions on this machine are: "
+echo "Tmux sessions in this machine: "
 echo ""
 
-tmux ls > tmux_sessions.tmp
-cat tmux_sessions.tmp | awk '{print $1}' | tr -d ":" 
-numberOfSessions=`cat tmux_sessions.tmp | wc -l`
-rm tmux_sessions.tmp
+sessions=( $(tmux ls | awk '{print $1}' | tr -d : | column -c 40) )
 
-read -p "Would you like to join or create new session(j/n): " jn
-if [ "$jn" == "n" ];
-then
-    read -p "Name?: " name
-    echo ""
-    echo "creating a new session......"
-    echo ""
-    tmux new -s ${name}
-    exit
-fi
+sessionNumber=0
+for i in ${sessions[@]}
+do
+    echo "$sessionNumber) $i"
+    let sessionNumber=sessionNumber+1
+done 
 
 echo ""
-read -p "Enter the name of the seesion that you want to load: " session
 
-echo ""
-echo "OK, lets load ${session}"
-echo ""
-
-tmux attach -t ${session}
-
-echo ""
+while true; do
+    read -p "Which session would you like to switch:" session
+    echo "tmux switch -t ${sessions[$session]}"
+    tmux switch -t ${sessions[$session]}
+done
