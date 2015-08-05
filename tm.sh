@@ -14,6 +14,31 @@ if [ "$option" == '1' ]; then
     tmux new -s $sessionName
 fi
 
+if [ "$option" == '3' ]; then
+
+    echo ""
+    echo "Tmux sessions in this machine: "
+    echo ""
+
+    sessions=( $(tmux ls | awk '{print $1}' | tr -d : | column -c 40) )
+
+    sessionNumber=0
+    for i in ${sessions[@]}
+    do
+        echo "$sessionNumber) $i"
+        let sessionNumber=sessionNumber+1
+    done 
+
+    echo ""
+
+    while true; do
+        read -p "Which session number would you like to switch(-1 to quit):" session
+        if [ "$session" == '-1' ]; then
+            exit 0
+        fi
+        tmux attach -t ${sessions[$session]}
+    done
+fi
 
 if [ "$option" == '4' ]; then
 
