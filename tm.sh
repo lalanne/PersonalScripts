@@ -8,6 +8,13 @@ echo "3) Attach"
 echo "4) Switch"
 
 read -p "?:" option
+
+if [ "$option" == '1' ]; then
+    read -p  "Enter name of the session: " sessionName
+    tmux new -s $sessionName
+fi
+
+
 if [ "$option" == '4' ]; then
 
     echo ""
