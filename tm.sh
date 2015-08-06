@@ -1,5 +1,12 @@
 #!/bin/sh
 
+function showOptions {
+    echo "1) Create" 
+    echo "2) Close"
+    echo "3) Attach"
+    echo "4) Switch"
+}
+
 echo ""
 echo "Tmux sessions in this machine: "
 echo ""
@@ -15,10 +22,7 @@ done
 
 echo ""
 echo "What do you want to do?: "
-echo "1) Create" 
-echo "2) Close"
-echo "3) Attach"
-echo "4) Switch"
+showOptions
 
 read -p "?:" option
 
