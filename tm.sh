@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 function showOptions {
     echo "1) Create" 
