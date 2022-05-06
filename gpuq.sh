@@ -5,5 +5,6 @@ if [ "$#" -ne 1 ]; then
   exit 1
 fi
 
+
 time=$1
 qsub -I -q GpuQ -l nodes=1:ppn=20 -l walltime=$time -A ipcc
